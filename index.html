@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Test Google Spreadsheet as a Database</title>
+	<!-- JQuery is Optional -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+	<p>Hello World</p>
+	<div class="post">
+	</div>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.min.js'></script>
+	<script type="text/javascript">
+		function init() {
+		  Tabletop.init( { key: 'https://docs.google.com/spreadsheets/d/1ks6sOYiTs1vwTd34GrKcEaxxBYKc_MzpyA4CmRIqX-8/pubhtml',
+		                   callback: function(data, tabletop) { 
+		                        console.log("data from sheet 1", tabletop.sheets("test1").elements)
+		                        console.log("data from sheet 2", tabletop.sheets("test2").elements)
+		                        //this is where the data :
+		                        var data1 = tabletop.sheets("test1").elements
+		                        for (var i = 0; i < data1.length; i++) {
+								    $(".post").append(
+								    	"<h1>" + data1[i].Name + "</h1>" +
+								    	"<p> termasuk sebuah " + data1[i].Category + " dengan tingkat kesehatan "+ data1[i].Healthiness + "</p>"
+								    	);
+								}
+		                   },
+		                   simpleSheet: false } )
+		}
+		window.addEventListener('DOMContentLoaded', init)
+	</script>
+</body>
+</html>
